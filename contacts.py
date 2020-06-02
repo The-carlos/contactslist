@@ -4,7 +4,7 @@ Final project for python course.
 This Agenda can:
 Add contact.
 Update Contact.
-Search contact.
+Show all contacts.
 Delete Contact.
 Show Contact.
 Exit.'''
