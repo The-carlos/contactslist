@@ -30,8 +30,9 @@ class Contac:
             CONTACTS.append(new_contact)
             print('Contact created!\n')
             c = input('Press any key to continue...\n')
+            self.save()
 
-        self.save()
+        
 
 
                 
@@ -59,7 +60,10 @@ class Contac:
                 contact[field] = data
                 print(f'The contact have been updated:\n{contact}')
                 c = input('Press any Key to continue.\n')
+                self.save()
                 break
+                
+
             else:
                 print('{} is not in the contacts\' list. Verify the name of the contact.'.format(updated_contact['name']))
                 c = input('Press any key to continue...\n')
@@ -78,18 +82,19 @@ class Contac:
                 contact.clear()
                 CONTACTS.remove(contact)
                 c = input('Contact deleted!\nPress any key to continue.')
+                self.save()
                 break
             else:
                 print('{} is not in the contacts\' list. Verify the name of the contact.'.format(deleted_contact))
                 c = input('Press any key to continue...\n')
                 break
 
-        self.save()
+        
 
     def save(self):
         with open ('contacts.csv', 'w') as f:
             writer = csv.writer(f)
-            writer.writerow(('name', 'phone', 'email'))
+            writer.writerow(('name', 'mail', 'phone_number'))
 
             for contact in CONTACTS:
                 writer.writerow((contact['name'], contact['mail'], contact['phone_number']))
@@ -99,7 +104,7 @@ class Contac:
 
 def run():
     contact = Contac()
-    new_contact = {'name':'','mail':'', 'phone_number':''}
+
 
     with open('contacts.csv', 'r') as f:
         reader = csv.reader(f)
