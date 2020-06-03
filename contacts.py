@@ -1,5 +1,6 @@
 import os
-''' Carlos Enrique Sánchez Martínez. 18th May 2019
+import csv
+''' Carlos Enrique Sánchez Martínez. 18th May 2019  IG: @Thecarlos_freeman
 Final project for python course.
 This Agenda can:
 Add contact.
@@ -29,6 +30,8 @@ class Contac:
             CONTACTS.append(new_contact)
             print('Contact created!\n')
             c = input('Press any key to continue...\n')
+
+        self.save()
 
 
                 
@@ -61,6 +64,8 @@ class Contac:
                 print('{} is not in the contacts\' list. Verify the name of the contact.'.format(updated_contact['name']))
                 c = input('Press any key to continue...\n')
                 break
+
+            self.save()
             
 
 
@@ -79,12 +84,36 @@ class Contac:
                 c = input('Press any key to continue...\n')
                 break
 
-        
+        self.save()
+
+    def save(self):
+        with open ('contacts.csv', 'w') as f:
+            writer = csv.writer(f)
+            writer.writerow(('name', 'phone', 'email'))
+
+            for contact in CONTACTS:
+                writer.writerow((contact['name'], contact['mail'], contact['phone_number']))
         
 
 
 
 def run():
+    contact = Contac()
+    new_contact = {'name':'','mail':'', 'phone_number':''}
+
+    with open('contacts.csv', 'r') as f:
+        reader = csv.reader(f)
+        for idx, row in enumerate(reader):
+            if idx == 0:
+                continue
+
+            new_contact = {'name':'','mail':'', 'phone_number':''}
+            new_contact ['name'] = row[0]
+            new_contact ['mail'] = row[1]
+            new_contact ['phone_number'] = row[2]
+
+            contact.create_contact(new_contact)
+
     while True:
         os.system('clear')
         print('Welcome to your Agenda.\n')
@@ -96,7 +125,7 @@ def run():
             [E]xit.''')
         command = input('\n').lower()
 
-        contact = Contac()
+        
 
         if command == 'a':
             os.system('clear')
